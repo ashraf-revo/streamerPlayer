@@ -10,14 +10,9 @@ import java.util.List;
 import java.util.function.Function;
 
 public class RtpPktToAdtsFrame implements Function<RtpPkt, List<AdtsFrame>> {
-    private int lastSeqNumber = 0;
-
     @Override
-    public List<AdtsFrame> apply(RtpPkt rtpPkt) {
+    public synchronized List<AdtsFrame> apply(RtpPkt rtpPkt) {
         List<AdtsFrame> adts = new ArrayList<>();
-        if (this.lastSeqNumber > rtpPkt.getSeqNumber()) return adts;
-        this.lastSeqNumber = rtpPkt.getSeqNumber();
-
         if (rtpPkt.getPayloadType() != 97) return adts;
         int auHeaderLength = StaticProcs.bytesToUIntInt(rtpPkt.getPayload(), 0) >> 3;
         int offset = 2 + auHeaderLength;
@@ -26,7 +21,6 @@ public class RtpPktToAdtsFrame implements Function<RtpPkt, List<AdtsFrame>> {
             adts.add(new AdtsFrame(rtpPkt.getPayload(), offset, size));
             offset += size;
         }
-
         return adts;
     }
 }

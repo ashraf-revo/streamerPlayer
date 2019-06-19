@@ -6,17 +6,16 @@ public class NALU {
     private NaluHeader naluHeader;
 
     public NALU(byte[] data, int offset, int length) {
-        this.data = new byte[length];
+        this.data = new byte[length - offset];
         System.arraycopy(data, offset, this.data, 0, this.data.length);
         this.naluHeader = NaluHeader.read(data[offset]);
     }
 
 
-    public NALU(int F, int NRI, int TYPE, byte[] payload, int offset) {
-        this.data = new byte[payload.length - offset + 1];
+    public NALU(int F, int NRI, int TYPE) {
+        this.data = new byte[1];
         this.naluHeader = NaluHeader.from(F, NRI, TYPE);
         this.data[0] = this.naluHeader.getRaw();
-        System.arraycopy(payload, offset, this.data, 1, this.data.length - 1);
     }
 
 

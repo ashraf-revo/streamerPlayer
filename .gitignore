@@ -1,7 +1,9 @@
 HELP.md
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-
+input.mp4
+out.aac
+out.h264
 ### STS ###
 .apt_generated
 .classpath

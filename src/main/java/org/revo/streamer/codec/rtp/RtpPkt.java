@@ -21,7 +21,9 @@ package org.revo.streamer.codec.rtp;
 
 import org.revo.streamer.codec.util.StaticProcs;
 
-public class RtpPkt /*implements Comparator<RtpPkt>*/ {
+import java.util.Comparator;
+
+public class RtpPkt implements Comparator<RtpPkt> {
     private int version = 2;        //2 bits
     private int padding;            //1 bit
     private int extension = 0;        //1 bit
@@ -33,13 +35,11 @@ public class RtpPkt /*implements Comparator<RtpPkt>*/ {
     private long[] csrcArray = null;//
     private byte[] rawPkt = null;
     private byte[] payload = null;
-    private int rtpChannle;
 
     public RtpPkt() {
     }
 
-    public RtpPkt(int rtpChannle, byte[] aRawPkt, int packetSize) {
-        this.rtpChannle = rtpChannle;
+    public RtpPkt(byte[] aRawPkt, int packetSize) {
         if (aRawPkt == null) {
             System.out.println("RtpPkt(byte[]) Packet null");
         }
@@ -72,7 +72,7 @@ public class RtpPkt /*implements Comparator<RtpPkt>*/ {
     }
 
     public RtpPkt(byte[] payload) {
-        this(1, payload, payload.length);
+        this(payload, payload.length);
     }
 
 
@@ -127,10 +127,6 @@ public class RtpPkt /*implements Comparator<RtpPkt>*/ {
         return csrcArray;
     }
 
-    public int getRtpChannle() {
-        return rtpChannle;
-    }
-
 
     public byte[] getPayload() {
         return payload;
@@ -167,10 +163,24 @@ public class RtpPkt /*implements Comparator<RtpPkt>*/ {
         System.arraycopy(rawPkt, headerLen, payload, 0, bytes);
     }
 
-/*
     @Override
     public int compare(RtpPkt o1, RtpPkt o2) {
-        return Integer.compare(o1.getSeqNumber(), o2.seqNumber);
+        long a = o1.getSeqNumber();
+        long b = o2.getSeqNumber();
+
+        if (a == b)
+            return 0;
+        else if (a > b) {
+            if (a - b < 32768)
+                return 1;
+            else
+                return -1;
+        } else // a < b
+        {
+            if (b - a < 32768)
+                return -1;
+            else
+                return 1;
+        }
     }
-*/
 }

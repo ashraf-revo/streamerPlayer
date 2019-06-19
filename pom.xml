@@ -20,38 +20,17 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jcodec</groupId>
-            <artifactId>jcodec</artifactId>
-            <version>0.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.jcodec</groupId>
-            <artifactId>jcodec-javase</artifactId>
-            <version>0.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mp4parser</groupId>
-            <artifactId>isoparser</artifactId>
-            <version>1.9.39</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mp4parser</groupId>
-            <artifactId>streaming</artifactId>
-            <version>1.9.39</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mp4parser</groupId>
-            <artifactId>muxer</artifactId>
-            <version>1.9.39</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-ip</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.jaadec</groupId>
+            <artifactId>jaad</artifactId>
+            <version>0.8.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
